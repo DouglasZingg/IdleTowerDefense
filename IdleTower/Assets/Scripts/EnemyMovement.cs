@@ -13,8 +13,8 @@ public class EnemyMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.isKinematic = true;
-        rb.useFullKinematicContacts = true;
+        //rb.isKinematic = true;
+        //rb.useFullKinematicContacts = true;
         target = GameObject.FindWithTag("Player");
     }
 
