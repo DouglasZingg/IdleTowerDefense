@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -9,6 +10,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float _minimumSpawnTime;
     [SerializeField] private float _maximumSpawnTime;
     private float _timeUntilSpawn;
+
+    public List<GameObject> enemies = new List<GameObject>();
+    public List<GameObject> spawnLocations = new List<GameObject>();
 
     void Awake()
     {
@@ -20,9 +24,11 @@ public class EnemySpawner : MonoBehaviour
     {
         _timeUntilSpawn -= Time.deltaTime;
 
-        if(_timeUntilSpawn <= 0)
+        if(_timeUntilSpawn <= 0 && enemies.Count < 10)
         {
-            Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
+            int rand = Random.Range(0, 12);
+            Instantiate(_enemyPrefab, spawnLocations[rand].transform.position, Quaternion.identity);
+            enemies.Add(_enemyPrefab);
             SetTimeUntilSpawn();
         }
     }
@@ -30,5 +36,17 @@ public class EnemySpawner : MonoBehaviour
     private void SetTimeUntilSpawn()
     {
         _timeUntilSpawn = Random.Range(_minimumSpawnTime, _maximumSpawnTime);
+    }
+
+    public void AmDead(GameObject enemy)
+    {
+        //for(int i = 0; i < enemies.Count; i++)
+        //{
+        //    if(enemies[i] == enemy)
+        //    {
+                enemies.RemoveAt(0);
+                //Destroy(enemy);
+        //    }
+        //}
     }
 }

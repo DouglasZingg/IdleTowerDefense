@@ -8,6 +8,7 @@ public class EnemyMovement : MonoBehaviour
     public GameObject target;
     public Vector2 spawnPoint = new Vector2(0, 0);
     private Rigidbody2D rb;
+    public GameObject spawner;
 
     // Start is called before the first frame update
     void Start()
@@ -16,11 +17,20 @@ public class EnemyMovement : MonoBehaviour
         //rb.isKinematic = true;
         //rb.useFullKinematicContacts = true;
         target = GameObject.FindWithTag("Player");
+        spawner = GameObject.FindWithTag("Spawners");
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.position = Vector2.MoveTowards(transform.position, target.transform.position, movementSpeed * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            spawner.GetComponent<EnemySpawner>().AmDead(this.gameObject); 
+        }
     }
 }
