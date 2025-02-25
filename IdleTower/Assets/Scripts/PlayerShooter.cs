@@ -12,6 +12,7 @@ public class PlayerShooter : MonoBehaviour
     private float timer;
 
     public float shootSpeed = 2.0f;
+    public float range = 10.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,7 @@ public class PlayerShooter : MonoBehaviour
             float distance = Vector2.Distance(transform.position, enemy.transform.position);
             Debug.Log(distance);
 
-            if (distance < 10f)
+            if (distance < range)
             {
                 timer += Time.deltaTime;
 
