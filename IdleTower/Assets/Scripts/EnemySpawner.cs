@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject _enemyPrefab;
+    public GameObject enemy;
 
-    [SerializeField] private float _minimumSpawnTime;
-    [SerializeField] private float _maximumSpawnTime;
-    private float _timeUntilSpawn;
+    public Transform[] spawnPoints;
 
-    public List<GameObject> enemies = new List<GameObject>();
-    public List<GameObject> spawnLocations = new List<GameObject>();
+    public float maxSpawnTime = 5.0f;
+    public float minSpawnTime = 2.0f;
+    public float spawnTime = 0.0f;
 
+    // Start is called before the first frame update
     void Awake()
     {
         SetTimeUntilSpawn();
@@ -22,31 +22,20 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _timeUntilSpawn -= Time.deltaTime;
+        spawnTime -= Time.deltaTime;
 
-        if(_timeUntilSpawn <= 0 && enemies.Count < 10)
+        if (spawnTime <= 0)
         {
-            int rand = Random.Range(0, 12);
-            Instantiate(_enemyPrefab, spawnLocations[rand].transform.position, Quaternion.identity);
-            enemies.Add(_enemyPrefab);
+            int randSpawnPoint = Random.Range(0, spawnPoints.Length);
+            Instantiate(enemy, spawnPoints[randSpawnPoint].position, transform.rotation);
+
             SetTimeUntilSpawn();
         }
+
     }
 
     private void SetTimeUntilSpawn()
     {
-        _timeUntilSpawn = Random.Range(_minimumSpawnTime, _maximumSpawnTime);
-    }
-
-    public void AmDead(GameObject enemy)
-    {
-        //for(int i = 0; i < enemies.Count; i++)
-        //{
-        //    if(enemies[i] == enemy)
-        //    {
-                enemies.RemoveAt(0);
-                //Destroy(enemy);
-        //    }
-        //}
+        spawnTime = Random.Range(minSpawnTime, maxSpawnTime);
     }
 }

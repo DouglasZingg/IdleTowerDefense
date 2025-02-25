@@ -5,34 +5,46 @@ using UnityEngine;
 public class PlayerShooter : MonoBehaviour
 {
     public GameObject bullet;
+    public GameObject enemy;
+
     public Transform bulletPosition;
 
     private float timer;
 
-    public EnemySpawner spawns;
+    public float shootSpeed = 2.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        enemy = GameObject.FindGameObjectWithTag("Enemy");
     }
 
     // Update is called once per frame
     void Update()
-    { 
-        if (spawns.enemies.Count > 0)
+    {
+        if (enemy != null)
         {
-            timer += Time.deltaTime;
+            float distance = Vector2.Distance(transform.position, enemy.transform.position);
+            Debug.Log(distance);
 
-            if (timer > 2)
+            if (distance < 10f)
             {
-                timer = 0;
-                shoot();
+                timer += Time.deltaTime;
+
+                if (timer > shootSpeed)
+                {
+                    timer = 0;
+                    Shoot();
+                }
             }
+        }
+        else
+        {
+            enemy = GameObject.FindGameObjectWithTag("Enemy");
         }
     }
 
-    void shoot()
+    private void Shoot()
     {
         Instantiate(bullet, bulletPosition.position, Quaternion.identity);
     }

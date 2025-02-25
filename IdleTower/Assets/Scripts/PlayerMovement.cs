@@ -5,24 +5,22 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float movementSpeed = 2f;
-    private Rigidbody2D rb;
-    private Vector2 movementDirection;
+    public Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb.isKinematic = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
     }
 
     void FixedUpdate()
     {
-        rb.velocity = movementDirection * movementSpeed;
+
     }
 }
