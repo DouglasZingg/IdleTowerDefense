@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemy;
+    public List<Enemy> enemies = new List<Enemy>();
+    public List<GameObject> enemiesToSpawn = new List<GameObject>();
 
     public Transform[] spawnPoints;
 
@@ -13,10 +14,17 @@ public class EnemySpawner : MonoBehaviour
     public float minSpawnTime = 2.0f;
     public float spawnTime = 0.0f;
 
+    public int wave = 1;
+    private int waveValue;
+    public int waveDuration;
+    private float waveTimer;
+    private int nextEnemy = 0;
+
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         SetTimeUntilSpawn();
+        GenerateWaves();
     }
 
     // Update is called once per frame
@@ -27,15 +35,70 @@ public class EnemySpawner : MonoBehaviour
         if (spawnTime <= 0)
         {
             int randSpawnPoint = Random.Range(0, spawnPoints.Length);
-            Instantiate(enemy, spawnPoints[randSpawnPoint].position, transform.rotation);
-
+            if (nextEnemy != enemiesToSpawn.Count)
+            {
+                Instantiate(enemiesToSpawn[nextEnemy], spawnPoints[randSpawnPoint].position, transform.rotation);
+                nextEnemy++;
+            }
+            else
+            {
+                nextEnemy = 0;
+                wave++;
+                GenerateWaves();
+            }
             SetTimeUntilSpawn();
         }
-
     }
 
     private void SetTimeUntilSpawn()
     {
         spawnTime = Random.Range(minSpawnTime, maxSpawnTime);
     }
+
+    public void GenerateWaves()
+    {
+        waveValue = wave * 10;
+        GenerateEnemies();
+
+        waveTimer = waveDuration; // wave duration is read only
+    }
+
+    public void GenerateEnemies()
+    {
+        // Create a temporary list of enemies to generate
+        // 
+        // in a loop grab a random enemy 
+        // see if we can afford it
+        // if we can, add it to our list, and deduct the cost.
+
+        // repeat... 
+
+        //  -> if we have no points left, leave the loop
+
+        List<GameObject> generatedEnemies = new List<GameObject>();
+        while (waveValue > 0 || generatedEnemies.Count < 50)
+        {
+            int randEnemyId = Random.Range(0, enemies.Count);
+            int randEnemyCost = enemies[randEnemyId].cost;
+
+            if (waveValue - randEnemyCost >= 0)
+            {
+                generatedEnemies.Add(enemies[randEnemyId].enemyPrefab);
+                waveValue -= randEnemyCost;
+            }
+            else if (waveValue <= 0)
+            {
+                break;
+            }
+        }
+        enemiesToSpawn.Clear();
+        enemiesToSpawn = generatedEnemies;
+    }
+}
+
+[System.Serializable]
+public class Enemy
+{
+    public GameObject enemyPrefab;
+    public int cost = 0;
 }

@@ -4239,7 +4239,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5ce38ec9734d964ca32b17720125ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 9058520742293183471, guid: 839cd14a10b9eaf46a9502fcf05a5232, type: 3}
+  enemies:
+  - enemyPrefab: {fileID: 9058520742293183471, guid: 839cd14a10b9eaf46a9502fcf05a5232, type: 3}
+    cost: 1
+  - enemyPrefab: {fileID: 9058520742293183471, guid: ec0ed108ba484b242ba12c14439977eb, type: 3}
+    cost: 2
+  - enemyPrefab: {fileID: 9058520742293183471, guid: dba44707e7b149d4085aeacbd55f229a, type: 3}
+    cost: 3
+  enemiesToSpawn: []
   spawnPoints:
   - {fileID: 1212692425}
   - {fileID: 324989754}
@@ -4260,6 +4267,8 @@ MonoBehaviour:
   maxSpawnTime: 5
   minSpawnTime: 2
   spawnTime: 0
+  wave: 1
+  waveDuration: 20
 --- !u!1 &658804393
 GameObject:
   m_ObjectHideFlags: 0
