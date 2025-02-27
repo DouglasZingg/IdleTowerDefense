@@ -413,7 +413,7 @@ MonoBehaviour:
   health: 1
   maxHealth: 1
   healthText: {fileID: 2641747304977638430}
-  experienceReward: 1
+  experienceReward: 2
 --- !u!114 &3237570134075787634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,7 +426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d24cc18f4336d4483a9e45c889da32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 1
+  movementSpeed: 3
   target: {fileID: 0}
 --- !u!114 &658926924190035538
 MonoBehaviour:
@@ -441,5 +441,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  damage: 5
-  attackSpeed: 4
+  damage: 3
+  attackSpeed: 2

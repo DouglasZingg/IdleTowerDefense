@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBulletScript : MonoBehaviour
+public class PlayerBullet : MonoBehaviour
 {
     private GameObject enemy;
 

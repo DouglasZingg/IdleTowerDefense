@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class WaveManager : MonoBehaviour
 {
     public List<Enemy> enemies = new List<Enemy>();
     public List<GameObject> enemiesToSpawn = new List<GameObject>();
@@ -19,6 +20,9 @@ public class EnemySpawner : MonoBehaviour
     public int waveDuration;
     private float waveTimer;
     private int nextEnemy = 0;
+
+    public TMP_Text waveText;
+    public TMP_Text timeText;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +52,11 @@ public class EnemySpawner : MonoBehaviour
             }
             SetTimeUntilSpawn();
         }
+        waveTimer -= Time.deltaTime;
+
+
+        waveText.text = "Wave: " + wave.ToString();
+        timeText.text = "Time Left: " + waveTimer.ToString("F0");
     }
 
     private void SetTimeUntilSpawn()
