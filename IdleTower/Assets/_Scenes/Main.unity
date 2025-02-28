@@ -8668,11 +8668,10 @@ MonoBehaviour:
   - {fileID: 445371460}
   - {fileID: 1101694892}
   - {fileID: 28526476}
-  maxSpawnTime: 5
-  minSpawnTime: 2
   spawnTime: 0
   wave: 1
-  waveDuration: 20
+  waveDuration: 30
+  spawnInterval: 0
   waveText: {fileID: 121904771}
   timeText: {fileID: 1847657769}
 --- !u!1 &1300033795
@@ -13874,7 +13873,7 @@ MonoBehaviour:
   bullet: {fileID: 6228021814781666903, guid: c0ee00deddf588b40bf6b5090b7c70dc, type: 3}
   enemy: {fileID: 0}
   bulletPosition: {fileID: 669911019}
-  shootSpeed: 2
+  shootSpeed: 1.75
   range: 5
 --- !u!114 &2091919314
 MonoBehaviour:

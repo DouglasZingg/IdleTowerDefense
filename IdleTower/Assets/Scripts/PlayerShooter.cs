@@ -26,7 +26,6 @@ public class PlayerShooter : MonoBehaviour
         if (enemy != null)
         {
             float distance = Vector2.Distance(transform.position, enemy.transform.position);
-            Debug.Log(distance);
 
             if (distance < range)
             {

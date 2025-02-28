@@ -11,8 +11,6 @@ public class WaveManager : MonoBehaviour
 
     public Transform[] spawnPoints;
 
-    public float maxSpawnTime = 5.0f;
-    public float minSpawnTime = 2.0f;
     public float spawnTime = 0.0f;
 
     public int wave = 1;
@@ -20,6 +18,7 @@ public class WaveManager : MonoBehaviour
     public int waveDuration;
     private float waveTimer;
     private int nextEnemy = 0;
+    public float spawnInterval;
 
     public TMP_Text waveText;
     public TMP_Text timeText;
@@ -27,15 +26,12 @@ public class WaveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetTimeUntilSpawn();
         GenerateWaves();
     }
 
     // Update is called once per frame
     void Update()
     {
-        spawnTime -= Time.deltaTime;
-
         if (spawnTime <= 0)
         {
             int randSpawnPoint = Random.Range(0, spawnPoints.Length);
@@ -43,6 +39,7 @@ public class WaveManager : MonoBehaviour
             {
                 Instantiate(enemiesToSpawn[nextEnemy], spawnPoints[randSpawnPoint].position, transform.rotation);
                 nextEnemy++;
+                spawnTime = spawnInterval;
             }
             else
             {
@@ -50,18 +47,13 @@ public class WaveManager : MonoBehaviour
                 wave++;
                 GenerateWaves();
             }
-            SetTimeUntilSpawn();
         }
+        
         waveTimer -= Time.deltaTime;
-
+        spawnTime -= Time.deltaTime;
 
         waveText.text = "Wave: " + wave.ToString();
         timeText.text = "Time Left: " + waveTimer.ToString("F0");
-    }
-
-    private void SetTimeUntilSpawn()
-    {
-        spawnTime = Random.Range(minSpawnTime, maxSpawnTime);
     }
 
     public void GenerateWaves()
@@ -69,6 +61,7 @@ public class WaveManager : MonoBehaviour
         waveValue = wave * 10;
         GenerateEnemies();
 
+        spawnInterval = waveDuration / enemiesToSpawn.Count;
         waveTimer = waveDuration; // wave duration is read only
     }
 
