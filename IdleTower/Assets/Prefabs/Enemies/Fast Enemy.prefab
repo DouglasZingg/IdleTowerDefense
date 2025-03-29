@@ -250,7 +250,6 @@ GameObject:
   - component: {fileID: 7897940425065840198}
   - component: {fileID: 8495034467315887982}
   - component: {fileID: 3237570134075787634}
-  - component: {fileID: 658926924190035538}
   m_Layer: 0
   m_Name: Fast Enemy
   m_TagString: Enemy
@@ -369,7 +368,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
 --- !u!50 &7897940425065840198
 Rigidbody2D:
@@ -428,18 +427,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 3
   target: {fileID: 0}
---- !u!114 &658926924190035538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9058520742293183471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32fe057841bc79b439336404b5cc6f4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  damage: 3
+  damage: 1
   attackSpeed: 2
